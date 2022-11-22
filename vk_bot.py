@@ -3,7 +3,6 @@ import json
 import random
 import logging
 
-from environs import Env
 import redis
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
@@ -93,13 +92,11 @@ def handle_get_counter_request(event, vk_api, db):
 
 
 def main():
-    env = Env()
-    env.read_env()
 
-    db_host = env('DB_HOST')
-    db_port = env('DB_PORT')
-    db_password = env('DB_PASSWORD')
-    vk_group_token = env('VK_GROUP_TOKEN')
+    db_host = os.environ['DB_HOST']
+    db_port = os.environ['DB_PORT']
+    db_password = os.environ['DB_PASSWORD']
+    vk_group_token = os.environ['VK_GROUP_TOKEN']
   
     vk_session = vk.VkApi(token=vk_group_token)
     vk_api = vk_session.get_api()

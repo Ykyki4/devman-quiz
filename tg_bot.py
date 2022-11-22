@@ -87,13 +87,11 @@ def error(bot, update, error):
 
 
 if __name__ == '__main__':
-    env = Env()
-    env.read_env()
+    tg_bot_token = os.environ['TG_BOT_TOKEN']
+    db_host = os.environ['DB_HOST']
+    db_port = os.environ['DB_PORT']
+    db_password = os.environ['DB_PASSWORD']
 
-    tg_bot_token = env('TG_BOT_TOKEN')
-    db_host = env('DB_HOST')
-    db_port = env('DB_PORT')
-    db_password = env('DB_PASSWORD')
     updater = Updater(tg_bot_token)
   
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
