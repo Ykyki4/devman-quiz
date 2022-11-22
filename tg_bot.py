@@ -15,7 +15,7 @@ from questions_utils import load_questions
 logger = logging.getLogger("BotLogger")
 
 
-class DialogStatus(enum.Enum):
+class DialogStates(enum.Enum):
     USER_CHOICE = 0
 
 
@@ -29,7 +29,7 @@ def start(update, context, db):
 
     update.message.reply_text('Привет! Я бот для викторин!', reply_markup=reply_markup)
 
-    return DialogStatus.USER_CHOICE
+    return DialogStates.USER_CHOICE
 
 
 def handle_new_question_request(update, context, questions, db):
@@ -40,7 +40,7 @@ def handle_new_question_request(update, context, questions, db):
     user_data['question'] = question
     db.set(user_id, json.dumps(user_data))
     update.message.reply_text(question)
-    return DialogStatus.USER_CHOICE
+    return DialogStates.USER_CHOICE
 
 
 def handle_solution_attempt(update, context, questions, db):
@@ -113,7 +113,7 @@ if __name__ == '__main__':
                                              db=db))],
 
         states={
-            DialogStatus.USER_CHOICE: [
+            DialogStates.USER_CHOICE: [
                 MessageHandler(Filters.regex('^Новый вопрос$'),
                                partial(handle_new_question_request,
                                        questions=questions,
