@@ -21,9 +21,9 @@ def load_questions(path_to_questions_folder):
     text_lines = files_content.split('\n\n')
     questions = {}
 
-    for index, value in enumerate(text_lines):
-        if 'Вопрос' in value:
-            question = value.split(':')[1].replace('\n', ' ')
+    for index, text_line in enumerate(text_lines):
+        if 'Вопрос' in text_line:
+            question = text_line.split(':')[1].replace('\n', ' ')
             answer = text_lines[index+1].split(':')[1].replace('\n', '')
             questions[question] = answer
     return questions
